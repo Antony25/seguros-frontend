@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Main } from "../pages/Main"
-import { Accounts } from "../pages/Accounts"
-import { Details } from "../pages/Details"
+import { Beneficiario } from "../pages/Beneficiario"
 
 
 export const MainRoutes = () => {
@@ -10,8 +9,7 @@ export const MainRoutes = () => {
        
 
        <Route path="/" element={<Main />}></Route>
-                <Route path="accounts/" element={<Accounts />}></Route>
-                <Route path="details/" element={<Details />}></Route>
+        <Route path="beneficiarios/" element={<Beneficiario />}></Route>
         <Route path="/*" element={ <Navigate to="/" /> } />
     </Routes>
   )

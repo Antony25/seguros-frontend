@@ -1,4 +1,4 @@
-import { Alert, AppBar, Box, Button, Fab, IconButton, ListSubheader, Menu, MenuItem, Snackbar, Toolbar, Typography } from "@mui/material";
+import { Alert, AppBar, Box, Fab, IconButton,  ListSubheader, Menu, MenuItem,  Snackbar,  Toolbar, Typography } from "@mui/material";
 import * as React from 'react';
 
 import Grid from "@mui/material/Unstable_Grid2";
@@ -8,15 +8,14 @@ import { AccountCircle } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getEmployes } from "../slice/thunks";
+import { getLinkUUIDService } from "../api/providers";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getBeneficiaries, getEmployes } from "../slice/thunks";
 import { logout } from "../../login/slice/authSlide";
 import { CardInfo } from "../../global-ui/CardInfo";
 import { AddInfo } from "../../global-ui/AddInfo";
 import AddIcon from '@mui/icons-material/Add';
-import { startForm } from "../slice/EmployesResponseSlice";
-import { setEmployeUpdate } from "../slice/EmployesUpdateSlice";
-import { UpdateInfo } from "../../global-ui/UpdateInfo ";
+import { startFormB } from "../slice/BeneficiarieResponseSlice";
 
 const darkTheme = createTheme({
   palette: {
@@ -27,12 +26,14 @@ const darkTheme = createTheme({
   },
 });
 
-export const Main = () => {
+export const Beneficiario = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { employe_id } = state;
 
   React.useEffect(() => {
-    dispatch(getEmployes())
+    dispatch(getBeneficiaries(employe_id))
 
 
   }, [])
@@ -40,9 +41,8 @@ export const Main = () => {
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [create, setCreate] = React.useState(false);
-  const { isLoading, options } = useSelector(state => state.Employes);
-  const { isLoadingDelete, successDelete, errorMessageDelete, finishedDelete, visible } = useSelector(state => state.Employe);
+  const { isLoading, options } = useSelector(state => state.Beneficiaries);
+  const { isLoadingDelete, successDelete, errorMessageDelete, finishedDelete , visible} = useSelector(state => state.Beneficiary);
 
 
 
@@ -51,14 +51,11 @@ export const Main = () => {
   };
 
   const handleClose = () => {
-    dispatch(logout({ errorMessage: "" }))
+    dispatch(logout({errorMessage:""}))
   };
-
-  const addE = (event) => {
-    dispatch(startForm())
+  const addB = (event) => {
+    dispatch(startFormB())
   };
-
-
 
   return (
     <>
@@ -77,39 +74,39 @@ export const Main = () => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Empleados
+                Lista de Beneficiarios
               </Typography>
-
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Cerrar Sesion</MenuItem>
-                </Menu>
-              </div>
-
+              
+                <div>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose}>Cerrar Sesion</MenuItem>
+                  </Menu>
+                </div>
+         
             </Toolbar>
           </AppBar>
         </ThemeProvider>
@@ -132,50 +129,43 @@ export const Main = () => {
             direction="column"
             alignItems="center"
             justifyContent="top"
-            sx={{ backgroundColor: 'primary.main', minWidth: 500 }}
+            sx={{  backgroundColor: 'primary.main', minWidth: 500 }}
           >
-            <Grid
+                        <Grid
               xs={12}
               sx={{ display: visible ? 'block' : 'none' }}
             >
-              <AddInfo employ={true} />
-            </Grid>
-            <Grid
-              xs={12}
-              sx={{ display: false ? 'block' : 'none' }}
-            >
-              <UpdateInfo employ={true} />
-            </Grid>
+                          <AddInfo employ={false} empleado={employe_id} />
+                          </Grid>
             <List
-
-              sx={{ width: '100%', bgcolor: 'background.paper', display: !visible ? 'block' : 'none' }}
+              sx={{ width: '100%', bgcolor: 'background.paper',  display: !visible ? 'block' : 'none' }}
               component="nav"
               aria-labelledby="nested-list-subheader"
               subheader={
-                <ListSubheader  sx={{zIndex:1000}}component="div" id="nested-list-subheader">
-                  Listado de Empleados            
+<ListSubheader  sx={{zIndex:1000}}component="div" id="nested-list-subheader">
+                  Listado de Beneficiarios          
                   <Fab variant="extended" color="success"
                   sx={{m:1}}
-                  onClick={addE}
+                  onClick={addB}
                   >
                     <AddIcon sx={{ mr: 1 }} />
-                    Agregar Empleado
+                    Agregar Beneficiario
                   </Fab>
                 </ListSubheader>
+              
               }
             >
 
               {options.map((option, index) => {
                 return (
 
-                  <CardInfo key={index} info={option} employ={true} />
+                  <CardInfo key={index} info={option} employe={false}/>
 
                 );
 
               })}
-
+  
             </List>
-
           </Grid>
 
         </Grid>
@@ -186,14 +176,13 @@ export const Main = () => {
           open={finishedDelete}
           //onClose={handleClose}
           message=""
-          autoHideDuration={600}
+          autoHideDuration={6000}
 
 
         >
-          <Alert sx={{ width: '100%' }} severity={successDelete ? "success" : "error"}>{errorMessageDelete}</Alert>
+          <Alert sx={{ width: '100%' }} severity={successDelete? "success":"error"}>{errorMessageDelete}</Alert>
         </Snackbar>
       </Box>
-
     </>
   )
 }
