@@ -22,7 +22,7 @@
     yarn install 
 
 ## ejecutar proyecto
-    yarn run
+    yarn start
 
 
 ## Ya se encuentra configurada la ruta de archiv
