@@ -31,7 +31,7 @@ export const CardInfo = ({ info, employ }) => {
         if (employ){
             dispatch(deleteEmploye(id))
         }else{
-            dispatch(deleteBeneficiarie(id))
+            dispatch(deleteBeneficiarie(id, info.empleado))
         }
 
     }

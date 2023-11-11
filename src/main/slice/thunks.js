@@ -55,13 +55,13 @@ export const getBeneficiaries= (id_employe) => {
 
 }
 
-export const deleteBeneficiarie= (id) => {
+export const deleteBeneficiarie= (id, empleado) => {
     return async (dispatch, getState) => {
         dispatch(startLoadingBeneficiary())
         const response = await deleteBeneficiarieService(id)
         
         dispatch(setBeneficiary(response))
-        dispatch(getBeneficiaries())
+        dispatch(getBeneficiaries(empleado))
     }
 }
 
@@ -72,7 +72,7 @@ export const addBeneficiary= (data) => {
         console.log(response)
         
         dispatch(setBeneficiary(response))
-        dispatch(getBeneficiaries())
+        dispatch(getBeneficiaries(data.empleado))
     }
 
 }
