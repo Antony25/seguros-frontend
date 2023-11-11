@@ -18,8 +18,6 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { deleteBeneficiarie, deleteEmploye } from '../main/slice/thunks';
-import { setBeneficiaryUpdate } from '../main/slice/BeneficiarieUpdateSlice';
-import { setEmployeUpdate, setItemEmployeUpdate } from '../main/slice/EmployesUpdateSlice';
 
 export const CardInfo = ({ info, employ }) => {
     const navigate = useNavigate();
@@ -37,11 +35,7 @@ export const CardInfo = ({ info, employ }) => {
         }
 
     }
-    const setUpdate = (event, item) => {
-        if( employ){        dispatch(setItemEmployeUpdate(item))}else{
-            dispatch(setBeneficiaryUpdate(item))
-        }
-      };
+
     return (
         <>
             <Grid2
@@ -132,8 +126,8 @@ export const CardInfo = ({ info, employ }) => {
                         >
                                 Ver Beneficiarios
                             </Button>
-                            <Button startIcon={<BorderColorIcon></BorderColorIcon>} variant="contained" color="warning" 
-                            onClick={setUpdate(info)}>
+                         <Button  sx={{display:"none"}}startIcon={<BorderColorIcon></BorderColorIcon>} variant="contained" color="warning" 
+                           >
                                 Actualizar
                             </Button>
                             <Button 

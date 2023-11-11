@@ -1,3 +1,35 @@
+## Instalar  NVM (Optional)
+    url: https://github.com/nvm-sh/nvm
+    nvm install 18
+    nvm use 18
+
+## SI no se usa el anterior installar node directamtente
+    install node 
+    https://nodejs.org/en/download
+
+
+
+## installar yarn yarn
+    https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable
+    npm install --global yarn
+   
+
+
+## prueba de instalacion
+    yarn
+
+## instalar dependencias
+    yarn install 
+
+## ejecutar proyecto
+    yarn run
+
+
+## Ya se encuentra configurada la ruta de archiv
+    
+### YA se ecneutra configurada la ruta por defecto del backend corriendo de manera local pero de ser necerario modificarla , solo se debe cambiar en la ruta src/api/ApiSettings.js
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
